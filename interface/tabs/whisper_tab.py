@@ -1,15 +1,21 @@
 import gradio as gr
-from functionality import *
+from data.data import Data
+from functionality.whisper import transcribe_audio
 
-def whisper_tab():
-    with gr.TabItem("Tale-til-tekst", id=0):
-        audio_input = gr.inputs.Audio(source="upload", type="filepath")
-        output_text = gr.Textbox(show_copy_button = True)
+class whisper_tab:
+    def __init__(self, data: Data, id: int):
+        self.data = data
+        self.id = id
 
-        iface = gr.Interface(
-            fn=whisper.transcribe_audio, 
-            inputs=audio_input,             
-            outputs=output_text, 
-            title="Audio Transcription App",    
-            description="Upload an audio file and hit the 'Submit' button"
-        )
+        with gr.Tab("Tale-til-tekst", id):
+            audio_input = gr.Audio(sources=["upload","microphone"], type="filepath")
+            transcript_output = gr.Textbox(label="Transkribering",placeholder="Tekst fra intervjuet vil vises her", interactive=False, show_copy_button=True)
+            submit_audio_btn = gr.Button("Transkriber lydklipp")
+            submit_audio_btn.click(fn=self.transcribe, inputs=audio_input, outputs=transcript_output)
+
+    def transcribe(self,audio):
+        transcription = transcribe_audio(audio)
+        self.data.transcription = transcription
+        return transcription
+    
+   

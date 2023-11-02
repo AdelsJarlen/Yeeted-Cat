@@ -1,4 +1,6 @@
+from interface.interface import interface
+
 def main():
-    pass
+    interface()
 
 main()

@@ -1,11 +1,13 @@
 import gradio as gr
-from interface.tabs import clipdrop_tab, whisper_tab
+from data.data import Data
+from interface.tabs import whisper_tab, gpt_tab, clipdrop_tab
 
-def main_window():
-    with gr.Blocks() as main_window:
-        whisper_tab.whisper_tab()
-        clipdrop_tab.clipdrop_tab()
+def interface():
+    data = Data()
 
-    main_window.launch()
+    with gr.Blocks() as b:
+        whisper_tab.whisper_tab(data, 0)    
+        gpt_tab.gpt_tab(data, 1)
+        clipdrop_tab.clipdrop_tab(data, 2)
 
-main_window()
+    b.launch()

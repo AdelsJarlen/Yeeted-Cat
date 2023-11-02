@@ -12,6 +12,6 @@ def sendPromptToClipdrop(prompt):
     if (r.ok):
     # r.content contains the bytes of the returned image
         image = Image.open(io.BytesIO(r.content))
-        image.save(f"resources/temp/clipdrop_images/clipdrop.jpg")    
+        return [image]
     else:
         r.raise_for_status()
