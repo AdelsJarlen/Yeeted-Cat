@@ -1,7 +1,8 @@
 import openai
 from data.data import Data
+import data.credentials
 
-openai.api_key = "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"
+openai.api_key = credentials.openai_api_key
 
 def api_calling(prompt: str):
     copmletions = openai.Completion.create(

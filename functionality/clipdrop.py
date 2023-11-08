@@ -1,12 +1,13 @@
 import requests
 import io
 from PIL import Image
+import data.credentials
 
 def sendPromptToClipdrop(prompt):
     r = requests.post(
         url = 'https://clipdrop-api.co/text-to-image/v1',
         files = {'prompt': (None, "Product design, "+ prompt, 'text/plain')},
-        headers = { 'x-api-key': "ac6d220774f556b180714170c5926a4e6b08589eb1cb27aa52d9afea740c4619c8207fb209a5cd4c8e87cb65c06d7709"}
+        headers = { 'x-api-key': credentials.clipdrop_api_key}
     )
 
     if (r.ok):
